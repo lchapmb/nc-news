@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import ArticlePreviewCard from './ArticlePreviewCard.jsx'
+import * as api from '../api'
 
 class ArticlesList extends PureComponent {
   state = { articles: [
@@ -13,18 +14,32 @@ class ArticlesList extends PureComponent {
       "created_at": "2017-03-11T13:20:18.573Z",
       "comment_count": "10"
     }
-  ]}
+    ],
+    isLoading: true
+  }
+
+  componentDidMount() {
+    this.fetchArticles();
+  }
+
+
 
   render() {
     const {articles} = this.state;
     return (
       <section className="article-list">
-        <h3>Top Stories</h3>
+        <h2>Top Stories</h2>
         {articles.map((article) => {
           return <ArticlePreviewCard key={article.article_id} {...article}/>
         })}
       </section>
     );
+  }
+
+  fetchArticles() {
+    api.getArticles().then((articles) => {
+      this.setState({articles, isLoading: false}, console.log("set"))
+    })
   }
 }
 
