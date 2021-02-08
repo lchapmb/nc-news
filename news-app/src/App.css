@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   height: 100vh;
-  border: 2px solid pink;
+  border: 5px solid pink;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr 80px;
@@ -19,18 +19,31 @@ ul{
   grid-area: "header";
   background-color: #282c34;
   color: white;
-  border: 2px solid grey;
+  border: 5px solid grey;
 }
 
 .nav-bar {
   grid-area: "navigation";
-  border: 2px solid lightblue;
+  border: 5px solid lightblue;
   background-color: #282c34;
   color: white;
+
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
+.nav-bar ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .article-list {
   grid-area: "article";
-  border: 2px solid green;
+  border: 5px solid green;
 }
 
+.article-preview {
+  border: 5px solid yellow;
+}

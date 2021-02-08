@@ -9,7 +9,7 @@ function ArticlePreviewCard(article) {
         <li>By: {article.author}</li>
         <li>Topic: {article.topic}</li>
         <li>Votes: {article.votes}</li>
-        <li>Published: {new Date(article.created_at).toUTCString()}</li>
+        <li>Published: {new Date(article.created_at).toDateString()}</li>
       </ul>
     </div>
   );
