@@ -42,6 +42,7 @@ ul{
 .article-list {
   grid-area: "article";
   border: 5px solid green;
+  margin-bottom: 60px;
 }
 
 .article-preview {

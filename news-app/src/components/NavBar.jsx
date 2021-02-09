@@ -11,10 +11,26 @@ class NavBar extends PureComponent {
     return (
       <nav className='nav-bar'>
         <ul>
-          <li><Link to={'/'}>Home</Link></li>
-          <li>Coding</li>
-          <li>Football</li>
-          <li>Cooking</li>
+          <li>
+            <Link to={'/'}>
+              <button>All Topics</button>
+            </Link>
+          </li>
+          <li>
+            <Link to={'/topic/coding'}>
+              <button>Coding</button>
+            </Link>
+          </li>
+          <li>
+            <Link to={'/topic/football'}>
+              <button>Football</button>
+            </Link>
+          </li>
+          <li>
+            <Link to={'/topic/cooking'}>
+              <button>Cooking</button>
+            </Link>
+          </li>
         </ul>
       </nav>
     );

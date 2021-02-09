@@ -1,7 +1,6 @@
 import React from 'react'
 
 function ArticlePreviewCard(article) {
-  console.log(article)
   return (
     <div className="article-preview">
       <h4>{article.title}</h4>

@@ -6,10 +6,11 @@ import { Router } from '@reach/router';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='App' >
       <Title />
       <Router>
-        <ArticleList path="/"/>
+        <ArticleList path='/' />
+        <ArticleList path='/topic/:topic' />
       </Router>
       <NavBar />
     </div>

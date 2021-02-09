@@ -11,6 +11,13 @@ class ArticlesList extends PureComponent {
     this.fetchArticles();
   }
 
+  componentDidUpdate(prevState) {
+    const { topic } = this.props;
+    if (prevState.topic !== topic) {
+      this.fetchArticles(topic);
+    }
+  }
+
 
 
   render() {
@@ -26,9 +33,9 @@ class ArticlesList extends PureComponent {
     );
   }
 
-  fetchArticles() {
-    api.getArticles().then((articles) => {
-      this.setState({articles, isLoading: false}, console.log("set"))
+  fetchArticles(topic) {
+    api.getArticles(topic).then((articles) => {
+      this.setState({articles, isLoading: false})
     })
   }
 }
