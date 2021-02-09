@@ -45,6 +45,20 @@ ul{
   margin-bottom: 60px;
 }
 
+.article-list h2 {
+  text-transform: capitalize;
+}
+
 .article-preview {
   border: 5px solid yellow;
+}
+
+.article-page {
+  grid-area: "article";
+  border: 5px solid green;
+  margin-bottom: 60px;
+}
+
+.article-page p {
+  text-align: left;
 }

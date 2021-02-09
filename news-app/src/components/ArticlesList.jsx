@@ -4,11 +4,13 @@ import * as api from '../api'
 
 class ArticlesList extends PureComponent {
   state = { articles: [],
-    isLoading: true
+    isLoading: true,
+    topic: ""
   }
 
   componentDidMount() {
-    this.fetchArticles();
+    const { topic } = this.props;
+    this.fetchArticles(topic);
   }
 
   componentDidUpdate(prevState) {
@@ -19,12 +21,11 @@ class ArticlesList extends PureComponent {
   }
 
 
-
   render() {
     const {articles} = this.state;
     return (
       <section className="article-list">
-        <h2>Top Stories</h2>
+        <h2>Top {this.state.topic ? `${this.state.topic} ` : ""}Stories</h2>
         {this.state.isLoading ? (<p>Loading articles...</p>) :
         (articles.map((article) => {
           return <ArticlePreviewCard key={article.article_id} {...article}/>
@@ -35,7 +36,7 @@ class ArticlesList extends PureComponent {
 
   fetchArticles(topic) {
     api.getArticles(topic).then((articles) => {
-      this.setState({articles, isLoading: false})
+      this.setState({articles, topic, isLoading: false})
     })
   }
 }

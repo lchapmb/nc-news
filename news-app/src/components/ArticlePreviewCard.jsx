@@ -1,9 +1,13 @@
 import React from 'react'
+import { Link } from '@reach/router';
 
 function ArticlePreviewCard(article) {
+  const articleId = article.article_id;
   return (
-    <div className="article-preview">
-      <h4>{article.title}</h4>
+    <div className='article-preview'>
+      <h4>
+        <Link to={`/article/${articleId}`}>{article.title}</Link>
+      </h4>
       <ul>
         <li>By: {article.author}</li>
         <li>Topic: {article.topic}</li>
