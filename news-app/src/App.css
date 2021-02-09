@@ -61,4 +61,26 @@ ul{
 
 .article-page p {
   text-align: left;
+  text-indent: 20px;
+  white-space: pre-line;
+}
+
+.comment-list {
+  grid-area: "article";
+  border: 5px solid green;
+  margin-bottom: 60px;
+}
+
+.comment-form {
+  border: 5px solid red;
+} 
+
+.comment-card {
+  border: 5px solid yellow;
+}
+
+.comment-card p {
+  text-align: left;
+  text-indent: 20px;
+  white-space: pre-line;
 }

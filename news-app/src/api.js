@@ -7,3 +7,10 @@ export const getArticles = (topic) => {
     return data.articles;
   });
 }
+
+export const getSingleArticle = (id) => {
+  const path = `https://nc-news-today.herokuapp.com/api/articles/${id}`;
+  return axios.get(path).then(({ data }) => {
+    return data.article;
+  });
+}
