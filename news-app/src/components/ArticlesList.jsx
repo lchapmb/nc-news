@@ -24,12 +24,23 @@ class ArticlesList extends PureComponent {
   render() {
     const {articles} = this.state;
     return (
-      <section className="article-list">
-        <h2>Top {this.state.topic ? `${this.state.topic} ` : ""}Stories</h2>
-        {this.state.isLoading ? (<p>Loading articles...</p>) :
-        (articles.map((article) => {
-          return <ArticlePreviewCard key={article.article_id} {...article}/>
-        }))}
+      <section className='article-list'>
+        <h2>Top {this.state.topic ? `${this.state.topic} ` : ''}Stories</h2>
+        <form className='sort-form'>
+          <label>
+            Sort articles by{' '}
+            <select>
+              <option value=''>All</option>
+            </select>
+          </label>
+        </form>
+        {this.state.isLoading ? (
+          <p>Loading articles...</p>
+        ) : (
+          articles.map((article) => {
+            return <ArticlePreviewCard key={article.article_id} {...article} />;
+          })
+        )}
       </section>
     );
   }
