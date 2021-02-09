@@ -1,7 +1,6 @@
 import React from 'react'
 
 function CommentCard(comment) {
-  console.log(comment)
   return (
     <div className='comment-card'>
       <h4>{comment.author}</h4>

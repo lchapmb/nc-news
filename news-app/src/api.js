@@ -14,3 +14,10 @@ export const getSingleArticle = (id) => {
     return data.article;
   });
 }
+
+export const getComments = (id) => {
+  const path = `https://nc-news-today.herokuapp.com/api/articles/${id}/comments`;
+  return axios.get(path).then(({data}) => {
+    return data.comments;
+  })
+}

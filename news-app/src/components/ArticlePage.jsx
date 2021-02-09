@@ -16,6 +16,7 @@ class ArticlePage extends PureComponent {
   render() {
     const { articleToDisplay } = this.state;
     return (
+      this.state.isLoading ? (<p>Loading article...</p>) : (
       <main className='article-page'>
         <h2>{articleToDisplay.title}</h2>
         <p>{articleToDisplay.body}</p>
@@ -35,7 +36,7 @@ class ArticlePage extends PureComponent {
           </li>
           <li>Comments: {articleToDisplay.comment_count}</li>
         </ul>
-      </main>
+      </main>)
     );
   }
 
