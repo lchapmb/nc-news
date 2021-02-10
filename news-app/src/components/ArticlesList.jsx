@@ -5,7 +5,7 @@ import Err from './Err';
 import SortList from './SortList'
 
 class ArticlesList extends PureComponent {
-  state = { articles: [], isLoading: true, topic: '', err: null, query: 'created_at' };
+  state = { articles: [], isLoading: true, topic: '', err: null, query: {sort_by:'created_at', order:'desc'} };
 
   componentDidMount() {
     const { topic } = this.props;
@@ -19,8 +19,6 @@ class ArticlesList extends PureComponent {
     console.log(prevState.query)
    
     if (prevState.topic !== topic) {
-      this.fetchArticles(topic);
-    } else if (prevState.query !== query) {
       this.fetchArticles(topic);
     } 
   }
@@ -58,11 +56,9 @@ class ArticlesList extends PureComponent {
 
   updateQuery = (query) => {
     console.log('updateQuery', query)
-    // this.setState({query})
-    // console.log('updateQuery', query)
-    // const { topic } = this.props;
-    // console.log('update', topic)
-    // this.fetchArticles(topic, query);
+    const { topic } = this.props;
+    console.log('update', topic)
+    this.fetchArticles(topic, query);
   };
 }
 

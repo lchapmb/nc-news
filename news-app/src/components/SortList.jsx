@@ -8,7 +8,8 @@ class SortList extends PureComponent {
 
   handleClick = (event) => {
     event.preventDefault();
-    const newQuery = event.target.value;
+    console.dir(event)
+    const newQuery = event.target.value
 
     this.props.updateQuery(newQuery);
   };
@@ -21,7 +22,7 @@ class SortList extends PureComponent {
         <ul>
           <li>Click to sort by:</li>
           <li>
-            <button onClick={this.handleClick} value={'created_at'}>
+            <button onClick={this.handleClick} value={'created_at'} order={'desc'}>
               Date
             </button>
           </li>
