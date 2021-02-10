@@ -1,9 +1,12 @@
 import axios from "axios";
 
 export const getArticles = (topic) => {
-  const articleUrl = 'https://nc-news-today.herokuapp.com/api/articles';
+  const articleUrl =
+    'https://nc-news-today.herokuapp.com/api/articles/';
+  const queryObj = {params: {sort_by: "created_at", order: 'desc'}}
   const path = topic ? `${articleUrl}?topic=${topic}` : articleUrl;
-  return axios.get(path).then(({data}) => {
+
+  return axios.get(path, queryObj).then(({data}) => {
     return data.articles;
   });
 }
@@ -16,8 +19,9 @@ export const getSingleArticle = (id) => {
 }
 
 export const getComments = (id) => {
-  const path = `https://nc-news-today.herokuapp.com/api/articles/${id}/comments`;
-  return axios.get(path).then(({data}) => {
+  const path = `https://nc-news-today.herokuapp.com/api/articles/${id}/comments/`;
+  const queryObj = { params: { sort_by: 'created_at', order: 'desc' } };
+  return axios.get(path, queryObj).then(({ data }) => {
     return data.comments;
-  })
+  });
 }

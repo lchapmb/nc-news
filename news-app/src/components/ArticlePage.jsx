@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react'
 import * as api from '../api';
 import { Link } from '@reach/router';
+import Err from './Err'
 
 class ArticlePage extends PureComponent {
   state = {
     articleToDisplay: {},
-    isLoading: true
+    isLoading: true,
+    err: null
   };
 
   componentDidMount() {
@@ -14,7 +16,8 @@ class ArticlePage extends PureComponent {
   }
 
   render() {
-    const { articleToDisplay } = this.state;
+    const { articleToDisplay , err} = this.state;
+    if (err) return <Err {...err}/>;
     return (
       this.state.isLoading ? (<p>Loading article...</p>) : (
       <main className='article-page'>
@@ -41,8 +44,15 @@ class ArticlePage extends PureComponent {
   }
 
   fetchSingleArticle(article_id) {
-    api.getSingleArticle(article_id).then((articleToDisplay) => {
+    api
+    .getSingleArticle(article_id)
+    .then((articleToDisplay) => {
       this.setState({ articleToDisplay, isLoading: false });
+    })
+    .catch((err) => {
+      this.setState({
+        err
+      })
     });
   }
 }

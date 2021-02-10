@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react'
 import ArticlePreviewCard from './ArticlePreviewCard.jsx'
 import * as api from '../api'
+import Err from './Err';
 
 class ArticlesList extends PureComponent {
-  state = { articles: [],
-    isLoading: true,
-    topic: ""
-  }
+  state = { articles: [], isLoading: true, topic: '', err: null };
 
   componentDidMount() {
     const { topic } = this.props;
@@ -20,9 +18,9 @@ class ArticlesList extends PureComponent {
     }
   }
 
-
   render() {
-    const {articles} = this.state;
+    const { articles , err } = this.state;
+    if (err) return <Err {...err} />;
     return (
       <section className='article-list'>
         <h2>Top {this.state.topic ? `${this.state.topic} ` : ''}Stories</h2>
@@ -46,9 +44,16 @@ class ArticlesList extends PureComponent {
   }
 
   fetchArticles(topic) {
-    api.getArticles(topic).then((articles) => {
-      this.setState({articles, topic, isLoading: false})
-    })
+    api
+      .getArticles(topic)
+      .then((articles) => {
+        this.setState({ articles, topic, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({
+          err
+        })
+      })
   }
 }
 

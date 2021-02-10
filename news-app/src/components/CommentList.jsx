@@ -34,6 +34,8 @@ class CommentList extends PureComponent {
     );
   }
 
+
+  // refactor to promise all
   fetchCommentsInfo(article_id) {
     api.getSingleArticle(article_id).then((articleToDisplay) => {
       this.setState({ articleToDisplay });
