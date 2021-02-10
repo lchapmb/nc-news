@@ -3,12 +3,14 @@ import CommentCard from './CommentCard'
 import AddComment from './AddComment'
 import { Link } from '@reach/router';
 import * as api from '../api';
+import Err from './Err';
 
 class CommentList extends PureComponent {
   state = {
     articleToDisplay: {},
     comments: [],
-    isLoading: true
+    isLoading: true,
+    err: null
   };
 
   componentDidMount() {
@@ -17,9 +19,11 @@ class CommentList extends PureComponent {
   }
 
   render() {
-    const { articleToDisplay, comments } = this.state;
-    return (
-      this.state.isLoading ? (<p>Loading comments...</p>) : (
+    const { articleToDisplay, comments , err } = this.state;
+    if (err) return <Err {...err} />;
+    return this.state.isLoading ? (
+      <p>Loading comments...</p>
+    ) : (
       <main className='comment-list'>
         <h2>{articleToDisplay.title}</h2>
         <Link to={`/article/${articleToDisplay.article_id}`}>
@@ -30,20 +34,33 @@ class CommentList extends PureComponent {
         {comments.map((comment) => {
           return <CommentCard key={comment.comment_id} {...comment} />;
         })}
-      </main>)
+      </main>
     );
   }
 
-
   // refactor to promise all
   fetchCommentsInfo(article_id) {
-    api.getSingleArticle(article_id).then((articleToDisplay) => {
-      this.setState({ articleToDisplay });
-    });
+    api
+      .getSingleArticle(article_id)
+      .then((articleToDisplay) => {
+        this.setState({ articleToDisplay });
+      })
+      .catch((err) => {
+        this.setState({
+          err
+        });
+      });;
 
-    api.getComments(article_id).then((comments) => {
-      this.setState({ comments, isLoading: false });
-    })
+    api
+      .getComments(article_id)
+      .then((comments) => {
+        this.setState({ comments, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({
+          err
+        });
+      });;
   }
 }
 

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import ArticlePreviewCard from './ArticlePreviewCard.jsx'
 import * as api from '../api'
 import Err from './Err';
+import SortList from './SortList'
 
 class ArticlesList extends PureComponent {
   state = { articles: [], isLoading: true, topic: '', err: null };
@@ -19,19 +20,13 @@ class ArticlesList extends PureComponent {
   }
 
   render() {
+    const currentPath = this.props.location.pathname;
     const { articles , err } = this.state;
     if (err) return <Err {...err} />;
     return (
       <section className='article-list'>
         <h2>Top {this.state.topic ? `${this.state.topic} ` : ''}Stories</h2>
-        <form className='sort-form'>
-          <label>
-            Sort articles by{' '}
-            <select>
-              <option value=''>All</option>
-            </select>
-          </label>
-        </form>
+        <SortList path={currentPath} />
         {this.state.isLoading ? (
           <p>Loading articles...</p>
         ) : (

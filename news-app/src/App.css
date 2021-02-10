@@ -84,3 +84,16 @@ ul{
   text-indent: 20px;
   white-space: pre-line;
 }
+
+.sort-form {
+  border: 5px solid orange;
+  font-size: 10px;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.sort-form ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
