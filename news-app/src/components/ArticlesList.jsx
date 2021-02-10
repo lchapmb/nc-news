@@ -5,7 +5,7 @@ import Err from './Err';
 import SortList from './SortList'
 
 class ArticlesList extends PureComponent {
-  state = { articles: [], isLoading: true, topic: '', err: null };
+  state = { articles: [], isLoading: true, topic: '', err: null, query: 'created_at' };
 
   componentDidMount() {
     const { topic } = this.props;
@@ -14,19 +14,24 @@ class ArticlesList extends PureComponent {
 
   componentDidUpdate(prevState) {
     const { topic } = this.props;
+    const { query } = this.state;
+    console.log('componentUpdate', query)
+    console.log(prevState.query)
+   
     if (prevState.topic !== topic) {
       this.fetchArticles(topic);
-    }
+    } else if (prevState.query !== query) {
+      this.fetchArticles(topic);
+    } 
   }
 
   render() {
-    const currentPath = this.props.location.pathname;
-    const { articles , err } = this.state;
+    const { articles, err } = this.state;
     if (err) return <Err {...err} />;
     return (
       <section className='article-list'>
         <h2>Top {this.state.topic ? `${this.state.topic} ` : ''}Stories</h2>
-        <SortList path={currentPath} />
+        <SortList updateQuery={this.updateQuery} />
         {this.state.isLoading ? (
           <p>Loading articles...</p>
         ) : (
@@ -38,18 +43,27 @@ class ArticlesList extends PureComponent {
     );
   }
 
-  fetchArticles(topic) {
+  fetchArticles(topic, query) {
     api
-      .getArticles(topic)
+      .getArticles(topic, query)
       .then((articles) => {
-        this.setState({ articles, topic, isLoading: false });
+        this.setState({ articles, topic, isLoading: false, query });
       })
       .catch((err) => {
         this.setState({
           err
-        })
-      })
+        });
+      });
   }
+
+  updateQuery = (query) => {
+    console.log('updateQuery', query)
+    // this.setState({query})
+    // console.log('updateQuery', query)
+    // const { topic } = this.props;
+    // console.log('update', topic)
+    // this.fetchArticles(topic, query);
+  };
 }
 
 export default ArticlesList

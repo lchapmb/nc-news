@@ -38,7 +38,7 @@ class CommentList extends PureComponent {
     );
   }
 
-  // refactor to promise all
+  // refactor to promise all - maybe get rid of article request
   fetchCommentsInfo(article_id) {
     api
       .getSingleArticle(article_id)

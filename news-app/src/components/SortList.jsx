@@ -1,24 +1,44 @@
-import React from 'react'
+import React, { PureComponent } from 'react';
 import { Link } from '@reach/router';
 
-function SortList(path) {
-  const currPath = path.path
-  return (
-    <form className='sort-form'>
-      <ul>
-        <li>Click to sort by:</li>
-        <li>
-          <Link to={`${currPath}`}>Date</Link>
-        </li>
-        <li>
-          <Link to={'/topic/coding'}>Comment Count</Link>
-        </li>
-        <li>
-          <Link to={'/topic/football'}>Votes</Link>
-        </li>
-      </ul>
-    </form>
-  );
+class SortList extends PureComponent {
+  state = {
+    query: ''
+  };
+
+  handleClick = (event) => {
+    event.preventDefault();
+    const newQuery = event.target.value;
+
+    this.props.updateQuery(newQuery);
+  };
+
+  render() {
+    const { query } = this.state;
+
+    return (
+      <form className='sort-form'>
+        <ul>
+          <li>Click to sort by:</li>
+          <li>
+            <button onClick={this.handleClick} value={'created_at'}>
+              Date
+            </button>
+          </li>
+          <li>
+            <button onClick={this.handleClick} value={'comment_count'}>
+              Comment Count
+            </button>
+          </li>
+          <li>
+            <button onClick={this.handleClick} value={'votes'}>
+              Votes
+            </button>
+          </li>
+        </ul>
+      </form>
+    );
+  }
 }
 
-export default SortList
+export default SortList;

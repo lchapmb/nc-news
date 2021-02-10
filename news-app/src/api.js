@@ -1,9 +1,10 @@
 import axios from "axios";
 
-export const getArticles = (topic) => {
+export const getArticles = (topic, query) => {
+  console.log("getArticles", query)
   const articleUrl =
     'https://nc-news-today.herokuapp.com/api/articles/';
-  const queryObj = {params: {sort_by: "created_at", order: 'desc'}}
+  const queryObj = {params: {sort_by: query, order: 'desc'}}
   const path = topic ? `${articleUrl}?topic=${topic}` : articleUrl;
 
   return axios.get(path, queryObj).then(({data}) => {
