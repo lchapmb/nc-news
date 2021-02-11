@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getArticles = (topic, query='created_at', order="desc") => {
-  console.log('getArticles', query, order);
   const articleUrl = 'https://nc-news-today.herokuapp.com/api/articles/';
   const queryObj = { params: { sort_by: query, order: order } };
   const path = topic ? `${articleUrl}?topic=${topic}` : articleUrl;

@@ -73,7 +73,16 @@ ul{
 
 .comment-form {
   border: 5px solid red;
+  width: 100%;
 } 
+
+.comment-form form {
+  display: inline-block;
+}
+
+.comment-form button {
+  width: 150px
+}
 
 .comment-card {
   border: 5px solid yellow;
