@@ -10,7 +10,8 @@ class CommentList extends PureComponent {
     articleToDisplay: {},
     comments: [],
     isLoading: true,
-    err: null
+    err: null,
+    username: 'tickle122'
   };
 
   componentDidMount() {
@@ -19,7 +20,7 @@ class CommentList extends PureComponent {
   }
 
   render() {
-    const { articleToDisplay, comments, err } = this.state;
+    const { articleToDisplay, comments, err, username } = this.state;
     if (err) return <Err {...err} />;
     return this.state.isLoading ? (
       <p>Loading comments...</p>
@@ -31,8 +32,11 @@ class CommentList extends PureComponent {
         </Link>
         <h3>Comments</h3>
         <AddComment addNewComment={this.addNewComment} />
+        {console.log(username)}
         {comments.map((comment) => {
-          return <CommentCard key={comment.comment_id} {...comment} />;
+          return (
+            <CommentCard key={comment.comment_id} {...comment} username={username} />
+          );
         })}
       </main>
     );
@@ -40,39 +44,55 @@ class CommentList extends PureComponent {
 
   addNewComment = (newComment) => {
     const { article_id } = this.props;
-    console.log(article_id, newComment)
+    console.log(article_id, newComment);
     api.postNewComment(newComment, article_id).then((postedComment) => {
-      this.setState(
-        (currentState) => {
-          return { comments: [postedComment, ...currentState.comments] };
-        }
-      );
-    })
-  }
+      this.setState((currentState) => {
+        return { comments: [postedComment, ...currentState.comments] };
+      }).catch((err) => {
+        this.setState({
+          err
+        });
+      });
+    });
+  };
 
-  // refactor to promise all - maybe get rid of article request
   fetchCommentsInfo(article_id) {
-    api
-      .getSingleArticle(article_id)
-      .then((articleToDisplay) => {
-        this.setState({ articleToDisplay });
-      })
-      .catch((err) => {
-        this.setState({
-          err
-        });
-      });
+    const articlePromise = api.getSingleArticle(article_id);
+    const commentPromise = api.getComments(article_id);
 
-    api
-      .getComments(article_id)
-      .then((comments) => {
-        this.setState({ comments, isLoading: false });
-      })
-      .catch((err) => {
-        this.setState({
-          err
-        });
+    Promise.all([articlePromise, commentPromise]).then(
+      ([articleToDisplay, comments]) => {
+        this.setState({ articleToDisplay, comments, isLoading: false });
+      }
+    )
+    .catch((err) => {
+      this.setState({
+        err
       });
+    });
+
+
+    // api
+    //   .getSingleArticle(article_id)
+    //   .then((articleToDisplay) => {
+    //     this.setState({ articleToDisplay });
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       err
+    //     });
+    //   });
+
+    // api
+    //   .getComments(article_id)
+    //   .then((comments) => {
+    //     this.setState({ comments, isLoading: false });
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       err
+    //     });
+    //   });
   }
 }
 
