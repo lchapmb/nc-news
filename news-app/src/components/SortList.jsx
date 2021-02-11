@@ -3,15 +3,14 @@ import { Link } from '@reach/router';
 
 class SortList extends PureComponent {
   state = {
-    query: ''
+    query: ""
   };
 
   handleClick = (event) => {
     event.preventDefault();
-    console.dir(event)
-    const newQuery = event.target.value
-
-    this.props.updateQuery(newQuery);
+    const newQuery = event.target.name;
+    const newOrder = event.target.value;
+    this.props.updateQuery(newQuery, newOrder);
   };
 
   render() {
@@ -22,17 +21,21 @@ class SortList extends PureComponent {
         <ul>
           <li>Click to sort by:</li>
           <li>
-            <button onClick={this.handleClick} value={'created_at'} order={'desc'}>
+            <button
+              onClick={this.handleClick}
+              name={'created_at'}
+              value={'desc'}
+            >
               Date
             </button>
           </li>
           <li>
-            <button onClick={this.handleClick} value={'comment_count'}>
+            <button onClick={this.handleClick} name={'comment_count'} value={'desc'}>
               Comment Count
             </button>
           </li>
           <li>
-            <button onClick={this.handleClick} value={'votes'}>
+            <button onClick={this.handleClick} name={'votes'} value={'asc'}>
               Votes
             </button>
           </li>
