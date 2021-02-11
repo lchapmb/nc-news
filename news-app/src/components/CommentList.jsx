@@ -32,15 +32,23 @@ class CommentList extends PureComponent {
         </Link>
         <h3>Comments</h3>
         <AddComment addNewComment={this.addNewComment} />
-        {console.log(username)}
         {comments.map((comment) => {
           return (
-            <CommentCard key={comment.comment_id} {...comment} username={username} />
+            <CommentCard
+              key={comment.comment_id}
+              {...comment}
+              username={username}
+              handleClick={this.handleClick}
+            />
           );
         })}
       </main>
     );
   }
+
+  handleClick = (event) => {
+    console.log(event);
+  };
 
   addNewComment = (newComment) => {
     const { article_id } = this.props;
@@ -60,17 +68,15 @@ class CommentList extends PureComponent {
     const articlePromise = api.getSingleArticle(article_id);
     const commentPromise = api.getComments(article_id);
 
-    Promise.all([articlePromise, commentPromise]).then(
-      ([articleToDisplay, comments]) => {
+    Promise.all([articlePromise, commentPromise])
+      .then(([articleToDisplay, comments]) => {
         this.setState({ articleToDisplay, comments, isLoading: false });
-      }
-    )
-    .catch((err) => {
-      this.setState({
-        err
+      })
+      .catch((err) => {
+        this.setState({
+          err
+        });
       });
-    });
-
 
     // api
     //   .getSingleArticle(article_id)

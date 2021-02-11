@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 
 class AddComment extends PureComponent {
   // { username: 'tickle122', body: 'generic comment' }
+  // username to be held in state at a higher level and passed down?
 
   state = { username: 'tickle122', body: '' };
 
