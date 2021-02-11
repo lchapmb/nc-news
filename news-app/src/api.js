@@ -24,3 +24,10 @@ export const getComments = (id) => {
     return data.comments;
   });
 }
+
+export const postNewComment = (comment, id) => {
+  const path = `https://nc-news-today.herokuapp.com/api/articles/${id}/comments/`;
+  return axios.post(path, comment).then(({data}) => {
+    return data.comment;
+  })
+}

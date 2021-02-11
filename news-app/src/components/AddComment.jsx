@@ -3,20 +3,19 @@ import React, { PureComponent } from 'react'
 class AddComment extends PureComponent {
   // { username: 'tickle122', body: 'generic comment' }
 
-  state = { username: 'tickle122', comments: [], newComment: '' };
+  state = { username: 'tickle122', body: '' };
 
   handleCommentSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
+    const newComment = {...this.state};
+    this.props.addNewComment(newComment);
+    this.setState({ newComment: ''})
   };
 
   handleInput = ({ target: { value, id } }) => {
     this.setState(
       (currentState) => {
         return { [id]: value };
-      },
-      () => {
-        console.log(this.state);
       }
     );
   };
@@ -27,7 +26,7 @@ class AddComment extends PureComponent {
         <label>
           Comment:
           <textarea
-            id='newComment'
+            id='body'
             onChange={this.handleInput}
             value={this.state.newComment}
           ></textarea>

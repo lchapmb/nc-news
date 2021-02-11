@@ -19,7 +19,7 @@ class CommentList extends PureComponent {
   }
 
   render() {
-    const { articleToDisplay, comments , err } = this.state;
+    const { articleToDisplay, comments, err } = this.state;
     if (err) return <Err {...err} />;
     return this.state.isLoading ? (
       <p>Loading comments...</p>
@@ -30,12 +30,24 @@ class CommentList extends PureComponent {
           <button>Back to article</button>
         </Link>
         <h3>Comments</h3>
-        <AddComment />
+        <AddComment addNewComment={this.addNewComment} />
         {comments.map((comment) => {
           return <CommentCard key={comment.comment_id} {...comment} />;
         })}
       </main>
     );
+  }
+
+  addNewComment = (newComment) => {
+    const { article_id } = this.props;
+    console.log(article_id, newComment)
+    api.postNewComment(newComment, article_id).then((postedComment) => {
+      this.setState(
+        (currentState) => {
+          return { comments: [postedComment, ...currentState.comments] };
+        }
+      );
+    })
   }
 
   // refactor to promise all - maybe get rid of article request
@@ -49,7 +61,7 @@ class CommentList extends PureComponent {
         this.setState({
           err
         });
-      });;
+      });
 
     api
       .getComments(article_id)
@@ -60,7 +72,7 @@ class CommentList extends PureComponent {
         this.setState({
           err
         });
-      });;
+      });
   }
 }
 
