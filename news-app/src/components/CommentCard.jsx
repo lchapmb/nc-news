@@ -8,7 +8,7 @@ function CommentCard(props) {
     username,
     comment_id,
     created_at,
-    handleClick
+    handleDelete
   } = props;
 
   return (
@@ -23,7 +23,7 @@ function CommentCard(props) {
           {author === username && (
             <button
               value={comment_id}
-              onClick={handleClick}
+              onClick={handleDelete}
               key={`del${comment_id}`}
             >
               Delete Comment

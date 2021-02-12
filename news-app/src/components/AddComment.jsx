@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 
 class AddComment extends PureComponent {
   // { username: 'tickle122', body: 'generic comment' }
@@ -10,17 +10,15 @@ class AddComment extends PureComponent {
 
   handleCommentSubmit = (event) => {
     event.preventDefault();
-    const newComment = {...this.state};
+    const newComment = { ...this.state };
     this.props.addNewComment(newComment);
-    this.setState({ newComment: ''})
+    this.setState({ body: '' });
   };
 
   handleInput = ({ target: { value, id } }) => {
-    this.setState(
-      (currentState) => {
-        return { [id]: value };
-      }
-    );
+    this.setState((currentState) => {
+      return { [id]: value };
+    });
   };
 
   // form validation!!!
@@ -33,7 +31,7 @@ class AddComment extends PureComponent {
           <textarea
             id='body'
             onChange={this.handleInput}
-            value={this.state.newComment}
+            value={this.state.body}
           ></textarea>
         </label>
         <button onClick={this.handleCommentSubmit}>Submit Comment</button>
@@ -42,4 +40,4 @@ class AddComment extends PureComponent {
   }
 }
 
-export default AddComment
+export default AddComment;

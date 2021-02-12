@@ -34,8 +34,8 @@ export const postNewComment = (comment, id) => {
 
 export const deleteComment = (article, comment) => {
   const path = `https://nc-news-today.herokuapp.com/api/articles/${article}/comments/${comment}`;
-  return axios.delete(path);
-  // .then(({ data }) => {
-  //   return data.comment;
-  // });
+  return axios.delete(path).then(({ data }) => {
+    console.log(data);
+    return data;
+  });
 };

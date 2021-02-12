@@ -11,12 +11,24 @@ class CommentList extends PureComponent {
     comments: [],
     isLoading: true,
     err: null,
-    username: 'tickle122'
+    username: 'tickle122',
+    pageToUpdate: false
   };
 
   componentDidMount() {
     const { article_id } = this.props;
     this.fetchCommentsInfo(article_id);
+  }
+
+  componentDidUpdate() {
+    const { article_id } = this.props;
+
+    if (this.state.pageToUpdate) {
+      this.fetchCommentsInfo(article_id);
+      this.setState((currentState) => {
+        return { pageToUpdate: false };
+      });
+    }
   }
 
   render() {
@@ -38,7 +50,7 @@ class CommentList extends PureComponent {
               key={comment.comment_id}
               {...comment}
               username={username}
-              handleClick={this.handleClick}
+              handleDelete={this.handleDelete}
             />
           );
         })}
@@ -46,7 +58,7 @@ class CommentList extends PureComponent {
     );
   }
 
-  handleClick = (event) => {
+  handleDelete = (event) => {
     const { article_id } = this.props;
     const comment_id = event.target.value;
 
@@ -55,10 +67,7 @@ class CommentList extends PureComponent {
       .then((res) => {
         console.log(res);
         this.setState((currentState) => {
-          const filteredComments = currentState.comments.filter(
-            (comment) => comment.comment_id !== comment_id
-          );
-          return { comments: filteredComments };
+          return { pageToUpdate: true };
         });
       })
       .catch((err) => {
@@ -75,7 +84,10 @@ class CommentList extends PureComponent {
       .postNewComment(newComment, article_id)
       .then((postedComment) => {
         this.setState((currentState) => {
-          return { comments: [postedComment, ...currentState.comments] };
+          return {
+            comments: [postedComment, ...currentState.comments],
+            pageToUpdate: true
+          };
         });
       })
       .catch((err) => {

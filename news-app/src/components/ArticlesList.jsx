@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react'
-import ArticlePreviewCard from './ArticlePreviewCard.jsx'
-import * as api from '../api'
+import React, { PureComponent } from 'react';
+import ArticlePreviewCard from './ArticlePreviewCard.jsx';
+import * as api from '../api';
 import Err from './Err';
-import SortList from './SortList'
+import SortList from './SortList';
 
 class ArticlesList extends PureComponent {
   state = {
@@ -48,7 +48,7 @@ class ArticlesList extends PureComponent {
     api
       .getArticles(topic, query, order)
       .then((articles) => {
-        this.setState({ articles, topic, isLoading: false, query });
+        this.setState({ articles, topic, isLoading: false, query, err: null });
       })
       .catch((err) => {
         this.setState({
@@ -63,4 +63,4 @@ class ArticlesList extends PureComponent {
   };
 }
 
-export default ArticlesList
+export default ArticlesList;

@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import { Link } from '@reach/router';
 
 function ArticlePreviewCard(article) {
   const articleId = article.article_id;
   return (
     <div className='article-preview'>
-      <h4>
+      <h3>
         <Link to={`/article/${articleId}`}>{article.title}</Link>
-      </h4>
+      </h3>
       <ul>
         <li>By: {article.author}</li>
         <li>Topic: {article.topic}</li>
@@ -19,4 +19,4 @@ function ArticlePreviewCard(article) {
   );
 }
 
-export default ArticlePreviewCard
+export default ArticlePreviewCard;
