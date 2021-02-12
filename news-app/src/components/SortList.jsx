@@ -3,7 +3,7 @@ import { Link } from '@reach/router';
 
 class SortList extends PureComponent {
   state = {
-    query: ""
+    query: ''
   };
 
   handleClick = (event) => {
@@ -30,12 +30,16 @@ class SortList extends PureComponent {
             </button>
           </li>
           <li>
-            <button onClick={this.handleClick} name={'comment_count'} value={'desc'}>
+            <button
+              onClick={this.handleClick}
+              name={'comment_count'}
+              value={'desc'}
+            >
               Comment Count
             </button>
           </li>
           <li>
-            <button onClick={this.handleClick} name={'votes'} value={'asc'}>
+            <button onClick={this.handleClick} name={'votes'} value={'desc'}>
               Votes
             </button>
           </li>

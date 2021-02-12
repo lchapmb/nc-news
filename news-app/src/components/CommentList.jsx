@@ -46,12 +46,31 @@ class CommentList extends PureComponent {
               {...comment}
               username={username}
               handleDelete={this.handleDelete}
+              handleCommentVote={this.handleCommentVote}
             />
           );
         })}
       </main>
     );
   }
+
+  handleCommentVote = (event) => {
+    const commentId = event.target.name;
+    const vote = event.target.value;
+    const { article_id } = this.props;
+    console.log('doot', commentId, vote);
+
+    // backend needs patch on comments
+
+    // api.patchVote(article_id, vote, commentId).then((articleToDisplay) => {
+    //   this.setState({ articleToDisplay, isLoading: false });
+    // });
+    //   .catch((err) => {
+    //     this.setState({
+    //       err
+    //     });
+    //   });
+  };
 
   handleDelete = (event) => {
     const { article_id } = this.props;
@@ -60,7 +79,6 @@ class CommentList extends PureComponent {
     api
       .deleteComment(article_id, comment_id)
       .then((res) => {
-        console.log(res);
         this.setState((currentState) => {
           return { pageToUpdate: true };
         });

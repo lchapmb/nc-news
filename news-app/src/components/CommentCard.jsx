@@ -8,7 +8,8 @@ function CommentCard(props) {
     username,
     comment_id,
     created_at,
-    handleDelete
+    handleDelete,
+    handleCommentVote
   } = props;
 
   return (
@@ -19,16 +20,23 @@ function CommentCard(props) {
         <li>Published: {new Date(created_at).toDateString()}</li>
         <li>Votes: {votes}</li>
         <li>
-          <button>Updoot</button>
-          {author === username && (
-            <button
-              value={comment_id}
-              onClick={handleDelete}
-              key={`del${comment_id}`}
-            >
-              Delete Comment
+          <div className='article-buttons'>
+            <button onClick={handleCommentVote} name={comment_id} value={1}>
+              Updoot
             </button>
-          )}
+            <button onClick={handleCommentVote} name={comment_id} value={-1}>
+              Downdoot
+            </button>
+            {author === username && (
+              <button
+                value={comment_id}
+                onClick={handleDelete}
+                key={`del${comment_id}`}
+              >
+                Delete Comment
+              </button>
+            )}
+          </div>
         </li>
       </ul>
     </div>

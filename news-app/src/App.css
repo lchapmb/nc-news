@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   height: 100vh;
-  border: 5px solid pink;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr 80px;
@@ -9,11 +8,22 @@
     'header'
     'article'
     'navigation';
+  background-color: #e5e5e5;
 }
 
 ul {
   padding: 0;
   list-style-type: none;
+}
+
+button {
+  background-color: #fca311;
+  border: none;
+  color: #14213d;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
 }
 
 .app-header {
@@ -22,6 +32,13 @@ ul {
   color: white;
   border: 5px solid grey;
   text-decoration: none;
+}
+
+.app-header p {
+  color: inherit;
+  position: relative;
+  right: 34%;
+  bottom: 100%;
 }
 
 .nav-bar {
@@ -59,6 +76,7 @@ ul {
   grid-area: 'article';
   border: 5px solid green;
   margin-bottom: 60px;
+  background-color: #e5e5e5;
 }
 
 .article-page p {
@@ -67,10 +85,21 @@ ul {
   white-space: pre-line;
 }
 
+.article-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.article-buttons button {
+  width: 70px;
+}
+
 .comment-list {
   grid-area: 'article';
-  border: 5px solid green;
+  border: 5px solid salmon;
   margin-bottom: 60px;
+  background-color: #e5e5e5;
 }
 
 .comment-form {

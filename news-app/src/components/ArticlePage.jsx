@@ -26,7 +26,20 @@ class ArticlePage extends PureComponent {
         <h2>{articleToDisplay.title}</h2>
         <p>{articleToDisplay.body}</p>
         <div className='article-buttons'>
-          <button>Updoot</button>
+          <button
+            onClick={this.handleVote}
+            name={articleToDisplay.article_id}
+            value={1}
+          >
+            Updoot
+          </button>
+          <button
+            onClick={this.handleVote}
+            name={articleToDisplay.article_id}
+            value={-1}
+          >
+            Downdoot
+          </button>
         </div>
         <ul>
           <li>Votes: {articleToDisplay.votes}</li>
@@ -41,6 +54,22 @@ class ArticlePage extends PureComponent {
       </main>
     );
   }
+
+  handleVote = (event) => {
+    const articleId = event.target.name;
+    const vote = event.target.value;
+
+    api
+      .patchVote(articleId, vote)
+      .then((articleToDisplay) => {
+        this.setState({ articleToDisplay, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({
+          err
+        });
+      });
+  };
 
   fetchSingleArticle(article_id) {
     api

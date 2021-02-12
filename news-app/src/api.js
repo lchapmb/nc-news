@@ -35,7 +35,18 @@ export const postNewComment = (comment, id) => {
 export const deleteComment = (article, comment) => {
   const path = `https://nc-news-today.herokuapp.com/api/articles/${article}/comments/${comment}`;
   return axios.delete(path).then(({ data }) => {
-    console.log(data);
     return data;
+  });
+};
+
+export const patchVote = (articleId, vote, commentId) => {
+  if (commentId) console.log('yep, comment');
+  // const path = commentId
+  //   ? `https://nc-news-today.herokuapp.com/api/articles/${articleId}/comments/${commentId}`
+  //   : `https://nc-news-today.herokuapp.com/api/articles/${articleId}`;
+  const path = `https://nc-news-today.herokuapp.com/api/articles/${articleId}`;
+  const data = { inc_votes: vote };
+  return axios.patch(path, data).then(({ data }) => {
+    return data.article;
   });
 };

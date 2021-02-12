@@ -9,6 +9,7 @@ function Title() {
           NC News
         </Link>
       </h1>
+      {/* <p>Welcome, User!</p> */}
     </header>
   );
 }
