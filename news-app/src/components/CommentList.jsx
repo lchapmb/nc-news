@@ -7,7 +7,6 @@ import Err from './Err';
 
 class CommentList extends PureComponent {
   state = {
-    articleToDisplay: {},
     comments: [],
     isLoading: true,
     err: null,
@@ -32,16 +31,12 @@ class CommentList extends PureComponent {
   }
 
   render() {
-    const { articleToDisplay, comments, err, username } = this.state;
+    const { comments, err, username } = this.state;
     if (err) return <Err {...err} />;
     return this.state.isLoading ? (
       <p>Loading comments...</p>
     ) : (
       <main className='comment-list'>
-        <h2>{articleToDisplay.title}</h2>
-        <Link to={`/article/${articleToDisplay.article_id}`}>
-          <button>Back to article</button>
-        </Link>
         <h3>Comments</h3>
         <AddComment addNewComment={this.addNewComment} />
         {comments.map((comment) => {
@@ -98,40 +93,16 @@ class CommentList extends PureComponent {
   };
 
   fetchCommentsInfo(article_id) {
-    const articlePromise = api.getSingleArticle(article_id);
-    const commentPromise = api.getComments(article_id);
-
-    Promise.all([articlePromise, commentPromise])
-      .then(([articleToDisplay, comments]) => {
-        this.setState({ articleToDisplay, comments, isLoading: false });
+    api
+      .getComments(article_id)
+      .then((comments) => {
+        this.setState({ comments, isLoading: false });
       })
       .catch((err) => {
         this.setState({
           err
         });
       });
-
-    // api
-    //   .getSingleArticle(article_id)
-    //   .then((articleToDisplay) => {
-    //     this.setState({ articleToDisplay });
-    //   })
-    //   .catch((err) => {
-    //     this.setState({
-    //       err
-    //     });
-    //   });
-
-    // api
-    //   .getComments(article_id)
-    //   .then((comments) => {
-    //     this.setState({ comments, isLoading: false });
-    //   })
-    //   .catch((err) => {
-    //     this.setState({
-    //       err
-    //     });
-    //   });
   }
 }
 
