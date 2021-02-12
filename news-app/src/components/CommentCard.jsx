@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function CommentCard(props) {
   const {
@@ -11,10 +11,6 @@ function CommentCard(props) {
     handleClick
   } = props;
 
-  // const handleClick = (event) => {
-  //   console.log(event);
-  // };
-
   return (
     <div className='comment-card'>
       <h4>{author}</h4>
@@ -25,7 +21,13 @@ function CommentCard(props) {
         <li>
           <button>Updoot</button>
           {author === username && (
-            <button onClick={handleClick} key={`del${comment_id}`}>Delete Comment</button>
+            <button
+              value={comment_id}
+              onClick={handleClick}
+              key={`del${comment_id}`}
+            >
+              Delete Comment
+            </button>
           )}
         </li>
       </ul>
@@ -33,4 +35,4 @@ function CommentCard(props) {
   );
 }
 
-export default CommentCard
+export default CommentCard;

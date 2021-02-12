@@ -6,6 +6,8 @@ class AddComment extends PureComponent {
 
   state = { username: 'tickle122', body: '' };
 
+  // use isLoading to disable submit button
+
   handleCommentSubmit = (event) => {
     event.preventDefault();
     const newComment = {...this.state};
@@ -20,6 +22,8 @@ class AddComment extends PureComponent {
       }
     );
   };
+
+  // form validation!!!
 
   render() {
     return (

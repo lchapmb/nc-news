@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
-import CommentCard from './CommentCard'
-import AddComment from './AddComment'
+import React, { PureComponent } from 'react';
+import CommentCard from './CommentCard';
+import AddComment from './AddComment';
 import { Link } from '@reach/router';
 import * as api from '../api';
 import Err from './Err';
@@ -47,21 +47,42 @@ class CommentList extends PureComponent {
   }
 
   handleClick = (event) => {
-    console.log(event);
-  };
-
-  addNewComment = (newComment) => {
     const { article_id } = this.props;
-    console.log(article_id, newComment);
-    api.postNewComment(newComment, article_id).then((postedComment) => {
-      this.setState((currentState) => {
-        return { comments: [postedComment, ...currentState.comments] };
-      }).catch((err) => {
+    const comment_id = event.target.value;
+
+    api
+      .deleteComment(article_id, comment_id)
+      .then((res) => {
+        console.log(res);
+        this.setState((currentState) => {
+          const filteredComments = currentState.comments.filter(
+            (comment) => comment.comment_id !== comment_id
+          );
+          return { comments: filteredComments };
+        });
+      })
+      .catch((err) => {
         this.setState({
           err
         });
       });
-    });
+  };
+
+  addNewComment = (newComment) => {
+    const { article_id } = this.props;
+
+    api
+      .postNewComment(newComment, article_id)
+      .then((postedComment) => {
+        this.setState((currentState) => {
+          return { comments: [postedComment, ...currentState.comments] };
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          err
+        });
+      });
   };
 
   fetchCommentsInfo(article_id) {
@@ -102,4 +123,4 @@ class CommentList extends PureComponent {
   }
 }
 
-export default CommentList
+export default CommentList;
