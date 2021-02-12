@@ -5,25 +5,27 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr 80px;
-  grid-template-areas: "header"
-  "article"
-  "navigation";
+  grid-template-areas:
+    'header'
+    'article'
+    'navigation';
 }
 
-ul{
+ul {
   padding: 0;
   list-style-type: none;
 }
 
 .app-header {
-  grid-area: "header";
+  grid-area: 'header';
   background-color: #282c34;
   color: white;
   border: 5px solid grey;
+  text-decoration: none;
 }
 
 .nav-bar {
-  grid-area: "navigation";
+  grid-area: 'navigation';
   border: 5px solid lightblue;
   background-color: #282c34;
   color: white;
@@ -40,7 +42,7 @@ ul{
 }
 
 .article-list {
-  grid-area: "article";
+  grid-area: 'article';
   border: 5px solid green;
   margin-bottom: 60px;
 }
@@ -54,7 +56,7 @@ ul{
 }
 
 .article-page {
-  grid-area: "article";
+  grid-area: 'article';
   border: 5px solid green;
   margin-bottom: 60px;
 }
@@ -66,7 +68,7 @@ ul{
 }
 
 .comment-list {
-  grid-area: "article";
+  grid-area: 'article';
   border: 5px solid green;
   margin-bottom: 60px;
 }
@@ -74,14 +76,14 @@ ul{
 .comment-form {
   border: 5px solid red;
   width: 100%;
-} 
+}
 
 .comment-form form {
   display: inline-block;
 }
 
 .comment-form button {
-  width: 150px
+  width: 150px;
 }
 
 .comment-card {
@@ -101,7 +103,7 @@ ul{
   justify-content: space-evenly;
 }
 
-.sort-form ul{
+.sort-form ul {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
